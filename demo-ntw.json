@@ -1,0 +1,167 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "CloudFormation template to create the Network Resources",
+    "Parameters": {
+        "VPCName": {
+            "Description": "Name of the VPC to be created",
+            "Type": "String"
+        },
+        "VPCCIDRBlock": {
+            "Description": "CIDR block for the newly created VPC",
+            "Type": "String",
+            "Default": "10.0.0.0/16"
+        },
+        "PublicSubnet1CIDR": {
+            "Type": "String",
+            "Description": "IP Address range for the first public Subnet",
+            "Default": "10.0.0.0/24"
+        },
+        "PublicSubnet1Name": {
+            "Type": "String",
+            "Description": "The name for the first public Subnet"
+        },
+        "PrivateSubnet1CIDR": {
+            "Type": "String",
+            "Description": "IP Address range for the first private Subnet",
+            "Default": "10.0.1.0/24"
+        },
+        "PrivateSubnet1Name": {
+            "Type": "String",
+            "Description": "The name for the first private Subnet"
+        },
+        "IGWName": {
+            "Type": "String",
+            "Description": "The name for the Internet Gateway"
+        }
+    },
+    "Resources": {
+        "VPC": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "CidrBlock": {
+                    "Ref": "VPCCIDRBlock"
+                },
+                "EnableDnsHostnames": true,
+                "EnableDnsSupport": true,
+                "InstanceTenancy": "default",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "VPCName"
+                        }
+                    }
+                ]
+            }
+        },
+        "InternetGateway": {
+            "Type": "AWS::EC2::InternetGateway",
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "IGWName"
+                        }
+                    }
+                ]
+            }
+        },
+        "InternetGatewayAttachment": {
+            "Type": "AWS::EC2::VPCGatewayAttachment",
+            "Properties": {
+                "InternetGatewayId": {
+                    "Ref": "InternetGateway"
+                },
+                "VpcId": {
+                    "Ref": "VPC"
+                }
+            }
+        },
+        "PublicSubnet1": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "AvailabilityZone": {
+                    "Fn::Select": [
+                        0,
+                        {
+                            "Fn::GetAZs": ""
+                        }
+                    ]
+                },
+                "CidrBlock": {
+                    "Ref": "PublicSubnet1CIDR"
+                },
+                "MapPublicIpOnLaunch": true,
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "PublicSubnet1Name"
+                        }
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VPC"
+                }
+            }
+        },
+        "PrivateSubnet1": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "AvailabilityZone": {
+                    "Fn::Select": [
+                        0,
+                        {
+                            "Fn::GetAZs": ""
+                        }
+                    ]
+                },
+                "CidrBlock": {
+                    "Ref": "PrivateSubnet1CIDR"
+                },
+                "MapPublicIpOnLaunch": false,
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "PrivateSubnet1Name"
+                        }
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VPC"
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "VPC": {
+            "Description": "VPCId of the newly created VPC",
+            "Value": {
+                "Ref": "VPC"
+            },
+            "Export": {
+                "Name": "VPC"
+            }
+        },
+        "PrivateSubnet1": {
+            "Description": "Private subnet1's id",
+            "Value": {
+                "Ref": "PrivateSubnet1"
+            },
+            "Export": {
+                "Name": "PrivateSubnet1"
+            }
+        },
+        "PublicSubnet1": {
+            "Description": "Public subnet1's Id",
+            "Value": {
+                "Ref": "PublicSubnet1"
+            },
+            "Export": {
+                "Name": "PublicSubnet1"
+            }
+        }
+    }
+}
