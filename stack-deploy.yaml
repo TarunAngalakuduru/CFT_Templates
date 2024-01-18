@@ -6,5 +6,7 @@ parameters:
   PublicSubnet1Name: ntw-pub-sub1
   PrivateSubnet1CIDR: 10.0.2.0/24
   PrivateSubnet1Name: ntw-pri-sub1
+  PrivateSubnet2Name: ntw-pri-sub2
+  PrivateSubnet2CIDR: 10.0.3.0/24
   IGWName: ntw-igw
 tags: {}
