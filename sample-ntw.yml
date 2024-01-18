@@ -26,6 +26,13 @@ Parameters:
   PrivateSubnet1Name:
     Type: String
     Description: The name for the first private Subnet
+  PrivateSubnet2CIDR:
+    Type: String
+    Description: IP Address range for the second private Subnet
+    Default: 10.0.2.0/24
+  PrivateSubnet2Name:
+    Type: String
+    Description: The name for the second private Subnet
   IGWName:
     Type: String
     Description: The name for the Internet Gateway
@@ -76,6 +83,18 @@ Resources:
         - Key: Name
           Value: !Ref PrivateSubnet1Name
       VpcId: !Ref VPC
+  PrivateSubnet2:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone: !Select 
+        - 1
+        - !GetAZs ''
+      CidrBlock: !Ref PrivateSubnet2CIDR
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: !Ref PrivateSubnet2Name
+      VpcId: !Ref VPC
     
 Outputs:
   VPC:
@@ -88,6 +107,11 @@ Outputs:
     Value: !Ref PrivateSubnet1
     Export:
       Name: PrivateSubnet1
+  PrivateSubnet2:
+    Description: Private subnet2's id
+    Value: !Ref PrivateSubnet2
+    Export:
+      Name: PrivateSubnet2
   PublicSubnet1:
     Description: Public subnet1's Id
     Value: !Ref PublicSubnet1
