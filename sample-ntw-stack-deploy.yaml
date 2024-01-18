@@ -1,0 +1,10 @@
+template-file-path: demo-ntw.json
+parameters:
+  VPCName: my-ntw-vpc
+  VPCCIDRBlock: 10.0.0.0/16
+  PublicSubnet1CIDR: 10.0.1.0/24
+  PublicSubnet1Name: my-pub-subnet1
+  PrivateSubnet1CIDR: 10.0.2.0/24
+  PrivateSubnet1Name: my-pri-subnet1
+  IGWName: my-ntw-igw
+tags: {}
