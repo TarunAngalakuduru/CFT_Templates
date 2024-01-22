@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+	PATH = "$PATH:C:/Program Files/Amazon/AWSCLIV2/"
         AWS_DEFAULT_REGION = 'ap-south-1'
     }
 
