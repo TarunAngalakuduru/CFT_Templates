@@ -21,7 +21,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    git branch: 'master', git credentialsId: 'c03b3035-9fd6-4c59-a0be-762842fc8b1a', url: 'https://github.com/TarunAngalakuduru/CFT_Templates.git'
+                    git branch: 'master', credentialsId: 'c03b3035-9fd6-4c59-a0be-762842fc8b1a', url: 'https://github.com/TarunAngalakuduru/CFT_Templates.git'
                 }
             }
         }
