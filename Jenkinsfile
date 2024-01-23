@@ -2,27 +2,26 @@ pipeline {
     agent any
 
     environment {
-	PATH = "$PATH:C:/Program Files/Amazon/AWSCLIV2/"
         AWS_DEFAULT_REGION = 'ap-south-1'
     }
 
     parameters {
-        string(name: 'VPCName', defaultValue: 'ntw-vpc', description: 'Description of the parameter')
-	string(name: 'VPCCIDRBlock', defaultValue: '10.0.0.0/16', description: 'Description of the parameter')
-	string(name: 'PublicSubnet1CIDR', defaultValue: '10.0.1.0/24', description: 'Description of the parameter')
+        string(name: 'VPCName', defaultValue: 'demo-ntw-vpc', description: 'Description of the parameter')
+	string(name: 'VPCCIDRBlock', defaultValue: '192.168.0.0/16', description: 'Description of the parameter')
+	string(name: 'PublicSubnet1CIDR', defaultValue: '192.168.1.0/24', description: 'Description of the parameter')
 	string(name: 'PublicSubnet1Name', defaultValue: 'ntw-pub-sub1', description: 'Description of the parameter')
-	string(name: 'PrivateSubnet1CIDR', defaultValue: '10.0.2.0/24', description: 'Description of the parameter')
+	string(name: 'PrivateSubnet1CIDR', defaultValue: '192.168.2.0/24', description: 'Description of the parameter')
 	string(name: 'PrivateSubnet1Name', defaultValue: 'ntw-pri-sub1', description: 'Description of the parameter')
 	string(name: 'PrivateSubnet2Name', defaultValue: 'ntw-pri-sub2', description: 'Description of the parameter')
-	string(name: 'PrivateSubnet2CIDR', defaultValue: '10.0.3.0/24', description: 'Description of the parameter')
-	string(name: 'IGWName', defaultValue: 'ntw-igw', description: 'Description of the parameter')  
+	string(name: 'PrivateSubnet2CIDR', defaultValue: '192.168.3.0/24', description: 'Description of the parameter')
+	string(name: 'IGWName', defaultValue: 'demo-ntw-igw', description: 'Description of the parameter')  
     }
 
     stages {
         stage('Checkout') {
             steps {
                 script {
-                    git branch: 'master', credentialsId: 'c03b3035-9fd6-4c59-a0be-762842fc8b1a', url: 'https://github.com/TarunAngalakuduru/CFT_Templates.git'
+                    git branch: 'master', credentialsId: '2b063bf8-5f5a-4287-81a3-8425c2291c19', url: 'https://github.com/TarunAngalakuduru/CFT_Templates.git'
                 }
             }
         }
