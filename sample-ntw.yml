@@ -101,19 +101,19 @@ Outputs:
     Description: VPCId of the newly created VPC
     Value: !Ref VPC
     Export:
-      Name: VPC
+      Name: NTW-VPC
   PrivateSubnet1:
     Description: Private subnet1's id
     Value: !Ref PrivateSubnet1
     Export:
-      Name: PrivateSubnet1
+      Name: NTW-PrivateSubnet1
   PrivateSubnet2:
     Description: Private subnet2's id
     Value: !Ref PrivateSubnet2
     Export:
-      Name: PrivateSubnet2
+      Name: NTW-PrivateSubnet2
   PublicSubnet1:
     Description: Public subnet1's Id
     Value: !Ref PublicSubnet1
     Export:
-      Name: PublicSubnet1
+      Name: NTW-PublicSubnet1
