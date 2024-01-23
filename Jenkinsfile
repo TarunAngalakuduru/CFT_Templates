@@ -30,9 +30,9 @@ pipeline {
             steps {
                 script {
                     echo "AWS Version:"
-            	    bat "aws --version"
+            	    sh "aws --version"
 		    echo "Deploying CloudFormation Stack..."
-                    bat "aws cloudformation deploy --template-file sample-ntw.yml --stack-name demo-ntw-stack --capabilities CAPABILITY_IAM --parameter-overrides VPCName=${params.VPCName} VPCCIDRBlock=${params.VPCCIDRBlock} PublicSubnet1CIDR=${params.PublicSubnet1CIDR} PublicSubnet1Name=${params.PublicSubnet1Name} PrivateSubnet1CIDR=${params.PrivateSubnet1CIDR} PrivateSubnet1Name=${params.PrivateSubnet1Name} PrivateSubnet2Name=${params.PrivateSubnet2Name} PrivateSubnet2CIDR=${params.PrivateSubnet2CIDR} IGWName=${params.IGWName}"
+                    sh "aws cloudformation deploy --template-file sample-ntw.yml --stack-name demo-ntw-stack --capabilities CAPABILITY_IAM --parameter-overrides VPCName=${params.VPCName} VPCCIDRBlock=${params.VPCCIDRBlock} PublicSubnet1CIDR=${params.PublicSubnet1CIDR} PublicSubnet1Name=${params.PublicSubnet1Name} PrivateSubnet1CIDR=${params.PrivateSubnet1CIDR} PrivateSubnet1Name=${params.PrivateSubnet1Name} PrivateSubnet2Name=${params.PrivateSubnet2Name} PrivateSubnet2CIDR=${params.PrivateSubnet2CIDR} IGWName=${params.IGWName}"
                 }
             }
         }
